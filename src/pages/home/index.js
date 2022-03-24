@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../../services/fireBaseConnection';
@@ -22,8 +22,8 @@ export function Home() {
             }).catch(error => console.log(error));
     }
 
-    async function logout(){
-        await signOut(auth).then(()=>{
+    async function logout() {
+        await signOut(auth).then(() => {
             console.log('Deslogado!')
         }).catch(error => console.log(error))
     }
@@ -45,22 +45,24 @@ export function Home() {
                 onChangeText={value => setSenha(value)}
                 style={[styles.input, { marginBottom: 10 }]}
             />
-            <Button
-                
-                title='CADASTRAR'
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => createUser()}
-            />
-            <Button
-                
-                title='LOGIN'
+            >
+                <Text style={styles.buttonTitle}>Create account</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => login()}
-            />
-            <Button
-                
-                title='SAIR'
+            >
+                <Text style={styles.buttonTitle}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => logout()}
-            />
-
+            >
+                <Text style={styles.buttonTitle}>LogOut</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -78,5 +80,20 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 50,
     },
-    
+    button: {
+        backgroundColor: 'black',
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 5,
+        height: 30,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: 'center',
+        width: '50%',
+    },
+    buttonTitle: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: "bold"
+    },
 })
