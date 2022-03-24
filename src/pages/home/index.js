@@ -39,6 +39,7 @@ export function Home() {
                 style={styles.input}
             />
             <TextInput
+                secureTextEntry={true}
                 placeholder='Senha'
                 placeholderTextColor="#313131"
                 value={senha}
@@ -51,12 +52,14 @@ export function Home() {
             >
                 <Text style={styles.buttonTitle}>Create account</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => login()}
             >
                 <Text style={styles.buttonTitle}>Login</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => logout()}
