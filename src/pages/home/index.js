@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
 
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../../services/fireBaseConnection';
 
 export function Home() {
@@ -13,6 +13,19 @@ export function Home() {
             .then(value => {
                 console.log('Cadastrado com sucesso! \n' + value.user.uid);
             }).catch(error => console.log(error));
+    }
+
+    async function login() {
+        await signInWithEmailAndPassword(auth, email, senha)
+            .then(value => {
+                console.log('Logado!');
+            }).catch(error => console.log(error));
+    }
+
+    async function logout(){
+        await signOut(auth).then(()=>{
+            console.log('Deslogado!')
+        }).catch(error => console.log(error))
     }
 
     return (
@@ -33,8 +46,19 @@ export function Home() {
                 style={[styles.input, { marginBottom: 10 }]}
             />
             <Button
+                
                 title='CADASTRAR'
                 onPress={() => createUser()}
+            />
+            <Button
+                
+                title='LOGIN'
+                onPress={() => login()}
+            />
+            <Button
+                
+                title='SAIR'
+                onPress={() => logout()}
             />
 
         </View>
@@ -53,5 +77,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         width: '80%',
         height: 50,
-    }
+    },
+    
 })
